@@ -611,6 +611,134 @@ enum HardwareModel {
   ME25LS01_4Y10TD = 75;
 
   /*
+   * RP2040_FEATHER_RFM95
+   * Adafruit Feather RP2040 with RFM95 LoRa Radio RFM95 with SX1272, SSD1306 OLED
+   * https://www.adafruit.com/product/5714
+   * https://www.adafruit.com/product/326
+   * https://www.adafruit.com/product/938
+   *  ^^^ short A0 to switch to I2C address 0x3C
+   *
+   */
+  RP2040_FEATHER_RFM95 = 76;
+
+  /* M5 esp32 based MCU modules with enclosure, TFT and LORA Shields. All Variants (Basic, Core, Fire, Core2, CoreS3, Paper) https://m5stack.com/ */
+  M5STACK_COREBASIC = 77;
+  M5STACK_CORE2 = 78;
+
+  /* Pico2 with Waveshare Hat, same as Pico */
+  RPI_PICO2 = 79;
+
+  /* M5 esp32 based MCU modules with enclosure, TFT and LORA Shields. All Variants (Basic, Core, Fire, Core2, CoreS3, Paper) https://m5stack.com/ */
+  M5STACK_CORES3 = 80;
+
+  /* Seeed XIAO S3 DK*/
+  SEEED_XIAO_S3 = 81;
+
+   /*
+   * Nordic nRF52840+Semtech SX1262 LoRa BLE Combo Module. nRF52840+SX1262 MS24SF1
+   */
+  MS24SF1 = 82;
+
+  /*
+   * Lilygo TLora-C6 with the new ESP32-C6 MCU
+   */
+  TLORA_C6 = 83;
+
+  /*
+   * WisMesh Tap
+   * RAK-4631 w/ TFT in injection modled case
+   */
+  WISMESH_TAP = 84;
+
+  /*
+   * Similar to PORTDUINO but used by Routastic devices, this is not any
+   * particular device and does not run Meshtastic's code but supports
+   * the same frame format.
+   * Runs on linux, see https://github.com/Jorropo/routastic
+   */
+  ROUTASTIC = 85;
+
+  /*
+   * Mesh-Tab, esp32 based
+   * https://github.com/valzzu/Mesh-Tab
+   */
+  MESH_TAB = 86;
+
+  /*
+   * MeshLink board developed by LoraItalia. NRF52840, eByte E22900M22S (Will also come with other frequencies), 25w MPPT solar charger (5v,12v,18v selectable), support for gps, buzzer, oled or e-ink display, 10 gpios, hardware watchdog
+   * https://www.loraitalia.it
+   */
+  MESHLINK = 87;
+
+  /*
+   * Seeed XIAO nRF52840 + Wio SX1262 kit
+   */
+  XIAO_NRF52_KIT = 88;
+  
+  /*
+   * Elecrow ThinkNode M1 & M2
+   * https://www.elecrow.com/wiki/ThinkNode-M1_Transceiver_Device(Meshtastic)_Power_By_nRF52840.html
+   * https://www.elecrow.com/wiki/ThinkNode-M2_Transceiver_Device(Meshtastic)_Power_By_NRF52840.html (this actually uses ESP32-S3)
+   */
+  THINKNODE_M1 = 89;
+  THINKNODE_M2 = 90;
+
+  /*
+   * Lilygo T-ETH-Elite
+   */
+  T_ETH_ELITE = 91;
+  
+  /*
+   * Heltec HRI-3621 industrial probe
+   */
+  HELTEC_SENSOR_HUB = 92;
+
+  /*
+   * Reserved Fried Chicken ID for future use
+   */
+  RESERVED_FRIED_CHICKEN = 93;
+  
+  /*
+   * Heltec Magnetic Power Bank with Meshtastic compatible
+   */
+  HELTEC_MESH_POCKET = 94;
+
+  /*
+   * Seeed Solar Node
+   */
+  SEEED_SOLAR_NODE = 95;
+
+  /*
+   * NomadStar Meteor Pro https://nomadstar.ch/
+   */
+  NOMADSTAR_METEOR_PRO = 96;
+
+  /*
+   * Elecrow CrowPanel Advance models, ESP32-S3 and TFT with SX1262 radio plugin
+   */
+  CROWPANEL = 97;
+
+  /**
+   * Lilygo LINK32 board with sensors
+   */
+  LINK_32 = 98;
+
+  /**
+   * Seeed Tracker L1
+   */
+  SEEED_WIO_TRACKER_L1 = 99;
+
+  /**
+   * Seeed Tracker L1 EINK driver
+   */
+  SEEED_WIO_TRACKER_L1_EINK = 100;
+
+  /*
+   * Reserved ID for future and past use
+   */
+  QWANTZ_TINY_ARMS = 101;
+
+  /*
    * ------------------------------------------------------------------------------------------------------------------------------------------
    * Reserved ID For developing private Ports. These will show up in live traffic sparsely, so we can use a high number. Keep it within 8 bits.
    * ------------------------------------------------------------------------------------------------------------------------------------------
