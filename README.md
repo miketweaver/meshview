@@ -34,6 +34,8 @@ The project serves as a real-time monitoring and diagnostic tool for the Meshtas
 
 * **Node Statistics**: Users can explore statistics related to network traffic, such as top contributors and message volumes.
 
+* **Multi-Key Decryption**: Support for decrypting messages from multiple channels with different encryption keys, automatically detecting the correct key for each message.
+
 Samples of currently running instances:
 
 - https://meshview.bayme.sh (SF Bay Area)
@@ -169,6 +171,11 @@ port = 1883
 username = meshdev
 password = large4cats
 
+# Channel encryption keys (base64 encoded)
+# Multiple keys can be specified, separated by commas
+# The first key is the default Meshtastic channel key
+channel_keys = 1PG7OiApB1nwvP+rz05pAQ==
+
 
 # -------------------------
 # Database Configuration
@@ -177,6 +184,46 @@ password = large4cats
 # SQLAlchemy connection string. This one uses SQLite with asyncio support.
 connection_string = sqlite+aiosqlite:///packets.db
 ```
+
+---
+
+## Multi-Key Decryption Configuration
+
+Meshview supports decrypting messages from multiple channels with different encryption keys. This is useful when monitoring networks that use private channels or when different groups use different encryption keys.
+
+### Adding Multiple Keys
+
+To add multiple encryption keys, edit your `config.ini` file and specify them in the `[mqtt]` section:
+
+```ini
+[mqtt]
+# ... other mqtt settings ...
+
+# Channel encryption keys (base64 encoded)
+# Multiple keys can be specified, separated by commas
+channel_keys = 1PG7OiApB1nwvP+rz05pAQ==,your_private_key_here,another_key_here
+```
+
+### How It Works
+
+1. **Automatic Key Detection**: When a message is received, Meshview automatically tries each configured key until one successfully decrypts the message.
+
+2. **Performance Optimization**: Once a key is found to work for a specific node/channel combination, it's cached to avoid re-testing keys for subsequent messages from the same source.
+
+3. **Backward Compatibility**: If no keys are configured, Meshview falls back to the default Meshtastic channel key.
+
+4. **Monitoring**: You can monitor the key manager performance via the `/api/keymanager` endpoint, which shows statistics about cached key mappings.
+
+### Getting Channel Keys
+
+Channel keys are base64-encoded AES keys. The system supports both:
+- **AES-128**: 16-byte keys (most common)
+- **AES-256**: 32-byte keys (for enhanced security)
+
+You can obtain them from:
+- Meshtastic device configuration
+- Channel settings in the Meshtastic app
+- Network administrators
 
 ---
 

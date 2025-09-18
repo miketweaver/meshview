@@ -13,3 +13,16 @@ if not config_parser.read(args.config):
 
 CONFIG = {section: dict(config_parser.items(section)) for section in config_parser.sections()}
 
+# Parse channel keys from config
+def get_channel_keys():
+    """Extract and parse channel keys from the MQTT section."""
+    mqtt_section = CONFIG.get("mqtt", {})
+    channel_keys_str = mqtt_section.get("channel_keys", "1PG7OiApB1nwvP+rz05pAQ==")
+    
+    # Split by comma and strip whitespace
+    keys = [key.strip() for key in channel_keys_str.split(",") if key.strip()]
+    return keys
+
+# Make channel keys available
+CHANNEL_KEYS = get_channel_keys()
+

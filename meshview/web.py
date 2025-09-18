@@ -49,6 +49,7 @@ class Packet:
     payload: str
     pretty_payload: Markup
     import_time: datetime.datetime
+    channel: str
 
 
     @classmethod
@@ -98,6 +99,7 @@ class Packet:
             import_time=packet.import_time,
             raw_mesh_packet=mesh_packet,
             raw_payload=payload,
+            channel=packet.channel or "",
         )
 
 @dataclass
@@ -1401,7 +1403,7 @@ async def api_chat(request):
             packet_dict = {
                 "id": p.id,
                 "import_time": p.import_time.isoformat(),
-                "channel": getattr(p.from_node, "channel", ""),
+                "channel": p.channel,
                 "from_node_id": p.from_node_id,
                 "long_name": getattr(p.from_node, "long_name", ""),
                 "payload": p.payload,
@@ -1587,6 +1589,30 @@ async def api_config(request):
         return web.json_response(CONFIG)
     except Exception as e:
         return web.json_response({"error": str(e)}, status=500)
+
+@routes.get("/api/keymanager")
+async def api_keymanager(request):
+    """API endpoint to get key manager statistics."""
+    try:
+        from meshview.key_manager import get_key_manager
+        
+        key_manager = get_key_manager()
+        if key_manager:
+            stats = key_manager.get_cache_stats()
+            return web.json_response({
+                "status": "active",
+                "total_keys": stats["total_keys"],
+                "cached_mappings": stats["cached_mappings"]
+            })
+        else:
+            return web.json_response({
+                "status": "not_initialized",
+                "total_keys": 0,
+                "cached_mappings": 0
+            })
+    except Exception as e:
+        return web.json_response({"error": str(e)}, status=500)
+
 
 @routes.get("/api/edges")
 async def api_edges(request):
